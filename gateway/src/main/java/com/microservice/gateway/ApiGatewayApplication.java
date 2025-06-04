@@ -33,6 +33,9 @@ public class ApiGatewayApplication {
 				.route("group-service-route", r -> r.path("/grupos/**")
 						.filters(f -> f.rewritePath("/grupos(?<segment>/?.*)", "/api/grupos${segment}"))
 						.uri("lb://group-service"))
+				.route("daily-message-service-route", r -> r.path("/message/**") // Caminho no Gateway
+						.filters(f -> f.rewritePath("/message/(?<segment>.*)", "/api/message/${segment}"))
+						.uri("lb://daily-message-service"))
 				.build();
 	}
 }
